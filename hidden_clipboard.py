@@ -36,10 +36,10 @@ class MyWindow():
                     btxt = WCB.GetClipboardData(WCON.CF_TEXT)
                     # if btxt.find('http') != -1:
                     #     btxt = btxt[btxt.find('http'):]
+                    WCB.CloseClipboard()
             except Exception as e:
                 print("error:", e)
-            finally:
-                WCB.CloseClipboard()
+            # finally:
 
             ok = False  # 依次尝试打印Unicode和字节码,ok是打印成功标志位
             if utxt:

@@ -50,37 +50,23 @@ class ViewerWindow:
             win32clipboard.OpenClipboard()
             link = win32clipboard.GetClipboardData(win32con.CF_UNICODETEXT)
             print("[log] OnDrawClipboard:", link)
-            win32clipboard.EmptyClipboard()
-            win32clipboard.CloseClipboard()
-
+            # win32clipboard.EmptyClipboard()
             if link.find('http') != -1:
                 link = link[link.find('http'):]
                 print("[log] OnDrawClipboard clean url:", link)
-                # ---------------------------------------------------------
-                dc, ps = win32gui.BeginPaint(hwnd)
-                wndrect = win32gui.GetClientRect(hwnd)
-                wndwidth = wndrect[2] - wndrect[0]
-                wndheight = wndrect[3] - wndrect[1]
-                font = win32gui.LOGFONT()
-                font.lfHeight = 15  # int(wndheight/20)
-                font.lfWidth = 15  # font.lfHeight
-                #            font.lfWeight=150
-                hf = win32gui.CreateFontIndirect(font)
-                win32gui.SelectObject(dc, hf)
-                win32gui.SetBkMode(dc, win32con.TRANSPARENT)
-                win32gui.SetTextColor(dc, win32api.RGB(0, 0, 0))
-                win32gui.DrawText(dc, 'vvvv', -1, (0, 0, wndwidth, wndheight), win32con.DT_CENTER)
-                # ---------------------------------------------------------
             else:
                 print("[log] OnDrawClipboard: not found links.")
             # ------------------------------------------------------------------
             win32gui.InvalidateRect(hwnd, None, True)
-        except TypeError as e:
+            win32clipboard.CloseClipboard()
+        except Exception as e:
             print("[log] OnDrawClipboard: TypeError.", e)
+        # finally:
 
     def OnChangeCBChain(self, hwnd, msg, wp, lp):
         print("[log] OnChangeCBChain")
-        # If the next window is closing, repair the chain.
+        # If the next window is closing,
+        # repair the chain.
         if wp == self.hwndNextViewer:
             self.hwndNextViewer = lp
         # Otherwise, pass the message to the next link.
