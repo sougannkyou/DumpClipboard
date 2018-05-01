@@ -37,3 +37,4 @@ for i in range(1, 100):
 # click 447 617
 # delay 1000
 # click 47 700
+
