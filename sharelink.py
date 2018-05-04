@@ -7,7 +7,7 @@ import win32clipboard as WCB
 # hwnd = win32gui.FindWindow("Qt5QWindowIcon", None)
 for i in range(1, 100):
     print(i)
-    hwnd = win32gui.FindWindow(None, "夜神模拟器1")
+    hwnd = win32gui.FindWindow(None, "抖音0")
     print(hwnd)
     left, top, right, bottom = win32gui.GetWindowRect(hwnd)
     print(left, top, right, bottom)
@@ -16,6 +16,7 @@ for i in range(1, 100):
     title = win32gui.GetWindowText(hwnd)
     clsname = win32gui.GetClassName(hwnd)
     print(title, clsname)
+
 
     win32gui.SetForegroundWindow(hwnd)
 

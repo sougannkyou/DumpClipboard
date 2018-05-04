@@ -1,3 +1,5 @@
+# coding: utf-8
+import chardet
 import win32gui
 import win32api
 import win32clipboard
@@ -5,6 +7,7 @@ import win32con
 import re
 import time
 from urllib.parse import urlparse, urlunparse
+
 
 class ViewerWindow:
     def __init__(self):
@@ -47,16 +50,18 @@ class ViewerWindow:
         try:
             # ------------------------------------------------------------------
             win32clipboard.OpenClipboard()
-            link = win32clipboard.GetClipboardData(win32con.CF_UNICODETEXT)
+            # link = win32clipboard.GetClipboardData(win32con.CF_UNICODETEXT)
+            link = win32clipboard.GetClipboardData(win32con.CF_RTF)
+            # print(chardet.detect(link))
             print("[log] OnDrawClipboard:", link)
             # win32clipboard.EmptyClipboard()
             if link.find('http') != -1:
                 link = link[link.find('http'):]
-                print("[log] OnDrawClipboard clean url:", link)
+                # print("[log] OnDrawClipboard clean url:", link)
             else:
                 print("[log] OnDrawClipboard: not found links.")
             # ------------------------------------------------------------------
-            win32gui.InvalidateRect(hwnd, None, True)
+            # win32gui.InvalidateRect(hwnd, None, True)
             win32clipboard.CloseClipboard()
         except Exception as e:
             print("[log] OnDrawClipboard: TypeError.", e)
